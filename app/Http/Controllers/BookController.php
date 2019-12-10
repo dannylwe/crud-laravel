@@ -67,7 +67,9 @@ class BookController extends Controller
      */
     public function edit($id)
     {
-        //
+        $book = Book::findorFail($id);
+
+        return view('book.edit', compact('book'));
     }
 
     /**
@@ -79,7 +81,17 @@ class BookController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validData = $request->validate([
+            'book_name' => 'required|max:255|min:3',
+            'isbn_no' => 'required|alpha_num|min:13',
+            'book_price' => 'required|numeric',
+        ]);
+
+        $updatedBook = $request->input('book_name');
+
+        Book::whereId($id)->update($validData);
+
+        return redirect('/books')->with('success', "The title $updatedBook was successfully updated");
     }
 
     /**
