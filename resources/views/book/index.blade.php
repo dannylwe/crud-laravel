@@ -14,6 +14,9 @@
       {{ session()->get('success') }}  
     </div><br />
   @endif
+
+  <a href="/books/create" class="btn btn-primary float-right mb-3">Create</a>
+
   <table class="table table-striped">
     <thead>
         <tr>
@@ -25,6 +28,17 @@
         </tr>
     </thead>
     <tbody>
+        @if(count($books) < 1)
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>No Books to Preview</td>
+            <td></td>
+            <td></td>
+        </tr>
+        @endif
+
         @foreach($books as $book)
         <tr>
             <td>{{$book->id}}</td>

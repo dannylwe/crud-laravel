@@ -86,12 +86,11 @@ class BookController extends Controller
             'isbn_no' => 'required|alpha_num|min:13',
             'book_price' => 'required|numeric',
         ]);
+    
+        $updatedBook = Book::whereId($id)->update($validData);
+        $book = Book::findorFail($id);
 
-        $updatedBook = $request->input('book_name');
-
-        Book::whereId($id)->update($validData);
-
-        return redirect('/books')->with('success', "The title $updatedBook was successfully updated");
+        return redirect('/books')->with('success', "The title $book->book_name was successfully updated");
     }
 
     /**
@@ -102,6 +101,9 @@ class BookController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $book = Book::findorFail($id);
+        $book->delete();
+
+        return redirect('/books')->with('success', "The title $book->book_name was successfully deleted");
     }
 }
