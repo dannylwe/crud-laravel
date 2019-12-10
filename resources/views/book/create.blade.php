@@ -20,7 +20,7 @@
               <li>{{ $error }}</li>
             @endforeach
         </ul>
-      </div><br />
+      </div>
     @endif
       <form method="post" action="{{ route('books.store') }}">
           <div class="form-group">
